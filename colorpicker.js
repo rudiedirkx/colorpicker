@@ -30,9 +30,12 @@ $html.onmouseup = function(e) {
 };
 $canvas.onmousemove = function(e) {
 	if ( picking ) {
-		var s = getComputedStyle(this),
-			x = e.layerX - parseFloat(s.getPropertyValue('border-left-width')),
-			y = e.layerY - parseFloat(s.getPropertyValue('border-top-width')),
+		var ratio = this.clientWidth / this.width,
+			s = getComputedStyle(this),
+			bl = parseFloat(s.getPropertyValue('border-left-width')),
+			bt = parseFloat(s.getPropertyValue('border-top-width')),
+			x = ~~( (e.layerX - bl) / ratio ),
+			y = ~~( (e.layerY - bt) / ratio ),
 			imageData = ctx.getImageData(x, y, 1, 1),
 			pixel = imageData.data,
 			dark = darkColor.apply(null, pixel);
