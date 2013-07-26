@@ -39,6 +39,9 @@ canvas {
 	cursor: pointer;
 	position: relative;
 }
+canvas.dragging {
+	border-color: #aaa;
+}
 code {
 	min-width: 150px;
 	font-size: 30px;
@@ -85,6 +88,8 @@ a {
 <p><a href="javascript:location='http://webblocks.nl/tests/colorpicker.php?url=' + encodeURIComponent(location)">Colorpick</a> &lt;&lt; drag to your bookmarks</p>
 
 <script>
+window.URL || (window.URL = window.webkitURL || window.mozURL);
+
 var url = '?_image=<?= @$_GET['url'] ?>',
 	picking = false;
 
@@ -133,6 +138,23 @@ $canvas.onmousemove = function(e) {
 		$rgba.value = rgba;
 		$hex.value = hex;
 	}
+};
+
+$canvas.ondragover = function(e) {
+	e.preventDefault();
+	var item = e.dataTransfer.items[0];
+	if ( item && item.type.indexOf('image/') == 0 ) {
+		this.classList.add('dragging');
+	}
+};
+$canvas.ondrop = function(e) {
+	e.preventDefault();
+	var file = e.dataTransfer.files[0];
+	img.src = URL.createObjectURL(file);
+};
+$canvas.ondragleave = function(e) {
+	e.preventDefault();
+	this.classList.remove('dragging');
 };
 
 function toHex(dec) {
