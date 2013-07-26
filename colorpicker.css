@@ -1,0 +1,59 @@
+
+.dark {
+	color: white;
+}
+html {
+	margin: 0;
+	padding: 0;
+}
+body {
+	margin: 20px;
+	padding: 0;
+}
+div,
+canvas,
+code {
+	display: inline-block;
+}
+canvas {
+	background: #eee;
+	border: solid 20px #ccc;
+	cursor: pointer;
+	position: relative;
+}
+canvas.dragging {
+	border-color: #000;
+	box-shadow: 0 0 70px #fff;
+}
+code {
+	min-width: 150px;
+	font-size: 30px;
+	margin-left: 20px;
+	font-weight: bold;
+}
+span {
+	margin-right: 2em;
+}
+input {
+	width: 15em;
+	background: rgba(0,0,0,0.1);
+	border: 0;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	color: inherit;
+	padding: 3px;
+}
+.dark input {
+	background: rgba(255,255,255,0.1);
+}
+a {
+	color: #000;
+	background: #bbb;
+	box-shadow: 0 0 20px #000;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 6px 10px;
+	border-radius: 20px;
+	margin-right: 6px;
+}

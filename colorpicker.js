@@ -1,96 +1,7 @@
-<?php
 
-if ( isset($_REQUEST['_image']) ) {
-	$url = $_REQUEST['_image'];
-
-	if ( $url ) {
-		header('Content-type: image/whatever');
-		readfile($url);
-	}
-	exit;
-}
-
-?>
-<!doctype html>
-<html>
-
-<head>
-<title>Color picker</title>
-<style>
-.dark {
-	color: white;
-}
-html {
-	margin: 0;
-	padding: 0;
-}
-body {
-	margin: 20px;
-	padding: 0;
-}
-div,
-canvas,
-code {
-	display: inline-block;
-}
-canvas {
-	background: #eee;
-	border: solid 20px #ccc;
-	cursor: pointer;
-	position: relative;
-}
-canvas.dragging {
-	border-color: #aaa;
-}
-code {
-	min-width: 150px;
-	font-size: 30px;
-	margin-left: 20px;
-	font-weight: bold;
-}
-span {
-	margin-right: 2em;
-}
-input {
-	width: 15em;
-	background: rgba(0,0,0,0.1);
-	border: 0;
-	font-family: inherit;
-	font-size: inherit;
-	font-weight: inherit;
-	color: inherit;
-	padding: 3px;
-}
-.dark input {
-	background: rgba(255,255,255,0.1);
-}
-a {
-	color: #000;
-	background: #bbb;
-	box-shadow: 0 0 20px #000;
-	font-weight: bold;
-	text-decoration: none;
-	padding: 6px 10px;
-	border-radius: 20px;
-	margin-right: 6px;
-}
-</style>
-</head>
-
-<body>
-
-<canvas></canvas>
-<code>
-	RGBA: <input id="rgba"></input><br />
-	HEX: <input id="hex"></input>
-</code>
-
-<p><a href="javascript:location='http://webblocks.nl/tests/colorpicker.php?url=' + encodeURIComponent(location)">Colorpick</a> &lt;&lt; drag to your bookmarks</p>
-
-<script>
 window.URL || (window.URL = window.webkitURL || window.mozURL);
 
-var url = '?_image=<?= @$_GET['url'] ?>',
+var url = './image.php?url=' + ( location.search.substr(1) || location.hash.substr(1) ),
 	picking = false;
 
 var $html = document.documentElement,
@@ -151,6 +62,7 @@ $canvas.ondrop = function(e) {
 	e.preventDefault();
 	var file = e.dataTransfer.files[0];
 	img.src = URL.createObjectURL(file);
+	this.classList.remove('dragging');
 };
 $canvas.ondragleave = function(e) {
 	e.preventDefault();
@@ -167,21 +79,3 @@ function darkColor(r, g, b) {
 	var yiq = (r*299 + g*587 + b*114) / 1000;
 	return yiq < 128;
 }
-</script>
-
-<script>
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-40956114-1']);
-_gaq.push(['_setDomainName', 'webblocks.nl']);
-_gaq.push(['_setAllowLinker', true]);
-_gaq.push(['_trackPageview']);
-(function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-</script>
-
-</body>
-
-</html>
