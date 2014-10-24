@@ -54,20 +54,20 @@ $canvas.onmousemove = function(e) {
 	}
 };
 
-$canvas.ondragover = function(e) {
+$html.ondragover = function(e) {
 	e.preventDefault();
 	var item = e.dataTransfer.items[0];
 	if ( item && item.type.indexOf('image/') == 0 ) {
 		this.classList.add('dragging');
 	}
 };
-$canvas.ondrop = function(e) {
+$html.ondrop = function(e) {
 	e.preventDefault();
 	var file = e.dataTransfer.files[0];
 	img.src = URL.createObjectURL(file);
 	this.classList.remove('dragging');
 };
-$canvas.ondragleave = function(e) {
+$html.ondragleave = function(e) {
 	e.preventDefault();
 	this.classList.remove('dragging');
 };
