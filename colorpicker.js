@@ -72,6 +72,16 @@ $canvas.ondragleave = function(e) {
 	this.classList.remove('dragging');
 };
 
+$html.onpaste = function(e) {
+	var data = e.clipboardData.getData('Files');
+	[].forEach.call(e.clipboardData.items, function(item) {
+		if (item.type.match(/^image\//)) {
+			var file = item.getAsFile();
+			img.src = URL.createObjectURL(file);
+		}
+	});
+};
+
 function toHex(dec) {
 	var hex = dec.toString(16);
 	hex.length < 2 && (hex = '0' + hex);
